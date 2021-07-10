@@ -1,0 +1,17 @@
+name: (PRODUCTION) - Deploy to Prod
+on:
+  pull_request:
+    branches: [ dev ]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    env:      
+      COGNITO_USER_POOL_ID: "us-west-2_iq4sQovhE"
+
+    steps:
+    - uses: actions/checkout@v1    
+    - name: Say Deploy to staging
+      run: |
+        echo "Deploy staging!!"        
