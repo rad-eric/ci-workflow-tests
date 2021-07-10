@@ -1,7 +1,7 @@
 name: (PRODUCTION) - Deploy to Prod
 on:
-  pull_request:
-    branches: [ main ]
+  release:
+    types: [published]
   workflow_dispatch:
 
 jobs:
