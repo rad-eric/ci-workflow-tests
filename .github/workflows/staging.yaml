@@ -1,6 +1,6 @@
-name: (PRODUCTION) - Deploy to Prod
+name: (STAGING) - Deploy to Staging
 on:
-  pull_request:
+  push:
     branches: [ dev ]
   workflow_dispatch:
 
