@@ -12,6 +12,6 @@ jobs:
 
     steps:
     - uses: actions/checkout@v1    
-    - name: Say Deploy
+    - name: Say Deploy to production
       run: |
         echo "Deploy!!"        
