@@ -17,13 +17,13 @@ jobs:
     - name: Deploy to ENV
       run: |
         ENVIRONMENT="dev"
-        if ["${{github.ref}}" == "refs/heads/main"]
-        then
+        echo "${{github.ref}} = github ref"
+        echo "${{github}} = github"
+        if ["${{github.ref}}" == "refs/heads/main"]; then
           echo "switch to staging here..."
           ENVIRONMENT="staging"
         fi            
-        if ["${{github.event.release}}"]
-        then
+        if ["${{github.event.release}}"]; then
           ENVIRONMENT="production"
           echo "${{github.event.release}}"
         fi       
