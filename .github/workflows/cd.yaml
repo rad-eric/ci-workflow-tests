@@ -19,7 +19,7 @@ jobs:
         ENVIRONMENT="dev"
         if ["${{github.ref}}" == "refs/heads/main"]
         then
-          echo 'switch to staging here...;
+          echo "switch to staging here..."
           ENVIRONMENT="staging"
         fi            
         if ["${{github.event.release}}"]
