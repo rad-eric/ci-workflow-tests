@@ -18,8 +18,7 @@ jobs:
       run: |
         ENVIRONMENT="dev"
         echo "${{github.ref}} = github ref"
-        echo "${{github}} = github"
-        if ["${{github.ref}}" == "refs/heads/main"]; then
+        if ["${{github.ref}}" = "refs/heads/main"]; then
           echo "switch to staging here..."
           ENVIRONMENT="staging"
         fi            
