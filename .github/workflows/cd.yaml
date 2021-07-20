@@ -18,12 +18,15 @@ jobs:
       run: |
         echo "Deploy staging!!" 
         if ["${{github.ref}}" == "refs/heads/main"]
+        then
           echo "This is staging environment"
         fi       
         if ["${{github.ref}}" == "refs/heads/dev"]
+        then
           echo "This is dev environment"
         fi       
         if ["${{github.event.release}}"]
+        then
           echo "This is a release"
           echo "${{github.event.release}}"
         fi       
