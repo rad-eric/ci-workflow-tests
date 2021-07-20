@@ -3,7 +3,9 @@ on:
   release:
     types: [published]
   push:
+  pull_request:
     branches: [ main, dev ]
+    types: [ opened, edited ]
   workflow_dispatch:
 
 jobs:
@@ -14,16 +16,28 @@ jobs:
 
     steps:
     - uses: actions/checkout@v1 
-    - name: Deploy to ENV
+    - name: DEV VARS
+      if: github.event_name == 'pull_request' && github.ref = "refs/heads/dev"
+      shell: bash
       run: |
-        ENVIRONMENT="dev"        
-        if ["${{github.ref}}" = "refs/heads/main"]; then
-          echo "switch to staging here..."
-          ENVIRONMENT="staging"
-        fi            
-        if ["${{github.event.release}}"]; then
-          ENVIRONMENT="production"
-          echo "${{github.event.release}}"
-        fi       
-        echo "${{github.ref}} = github ref"
-        echo "The env is $ENVIRONMENT"
+        echo "ENVIRONMENT=dev" >> $GITHUB_ENV
+        echo "BRANCH_NAME=$(echo ${GITHUB_HEAD_REF} | tr / -)" >> $GITHUB_ENV
+
+    - name: STAGING VARS
+      if: github.event_name == 'pull_request' && github.ref = "refs/heads/main"
+      shell: bash
+      run: |
+        echo "ENVIRONMENT=staging" >> $GITHUB_ENV
+        echo "BRANCH_NAME=$(echo ${GITHUB_HEAD_REF} | tr / -)" >> $GITHUB_ENV
+    - name: PRODUCTION VARS
+      if: github.event_name == 'release' 
+      shell: bash
+      run: |
+        echo "ENVIRONMENT=production" >> $GITHUB_ENV
+        echo "BRANCH_NAME=$(echo ${GITHUB_HEAD_REF} | tr / -)" >> $GITHUB_ENV
+        
+    - name: Debug
+      run: 
+        echo ${{ env.BRANCH_NAME }}
+        echo ${{ env.ENVIRONMENT }}
+ 
