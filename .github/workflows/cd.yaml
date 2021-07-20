@@ -16,17 +16,14 @@ jobs:
     - uses: actions/checkout@v1    
     - name: Say Deploy to staging
       run: |
-        echo "Deploy staging!!" 
+        ENVIRONMENT="dev"
         if ["${{github.ref}}" == "refs/heads/main"]
         then
-          echo "This is staging environment"
-        fi       
-        if ["${{github.ref}}" == "refs/heads/dev"]
-        then
-          echo "This is dev environment"
-        fi       
+          $ENVIRONMENT="staging"
+        fi            
         if ["${{github.event.release}}"]
         then
-          echo "This is a release"
+          $ENVIRONMENT="staging"
           echo "${{github.event.release}}"
         fi       
+        echo "The env is $ENVIRONMENT"
