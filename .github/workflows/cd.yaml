@@ -17,14 +17,14 @@ jobs:
     steps:
     - uses: actions/checkout@v1 
     - name: DEV VARS
-      if: github.event_name == 'pull_request' && github.ref == "refs/heads/dev"
+      if: github.event_name == 'pull_request' 
       shell: bash
       run: |
         echo "ENVIRONMENT=dev" >> $GITHUB_ENV
         echo "BRANCH_NAME=$(echo ${GITHUB_HEAD_REF} | tr / -)" >> $GITHUB_ENV
 
     - name: STAGING VARS
-      if: github.event_name == 'pull_request' && github.ref == "refs/heads/main"
+      if: github.event_name == 'pull_request' 
       shell: bash
       run: |
         echo "ENVIRONMENT=staging" >> $GITHUB_ENV
