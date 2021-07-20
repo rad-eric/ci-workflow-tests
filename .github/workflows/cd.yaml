@@ -14,9 +14,6 @@ jobs:
 
     steps:
     - uses: actions/checkout@v1    
-    - name: what happened
-      run: |
-        echo "${{}}"
     - name: Deploy to ENV
       run: |
         ENVIRONMENT="dev"
