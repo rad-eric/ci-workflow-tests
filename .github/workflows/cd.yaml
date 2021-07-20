@@ -13,11 +13,10 @@ jobs:
       COGNITO_USER_POOL_ID: "us-west-2_iq4sQovhE"
 
     steps:
-    - uses: actions/checkout@v1    
+    - uses: actions/checkout@v1 
     - name: Deploy to ENV
       run: |
-        ENVIRONMENT="dev"
-        echo "${{github.ref}} = github ref"
+        ENVIRONMENT="dev"        
         if ["${{github.ref}}" = "refs/heads/main"]; then
           echo "switch to staging here..."
           ENVIRONMENT="staging"
@@ -26,4 +25,5 @@ jobs:
           ENVIRONMENT="production"
           echo "${{github.event.release}}"
         fi       
+        echo "${{github.ref}} = github ref"
         echo "The env is $ENVIRONMENT"
