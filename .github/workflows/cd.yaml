@@ -23,7 +23,7 @@ jobs:
         fi            
         if ["${{github.event.release}}"]
         then
-          $ENVIRONMENT="staging"
+          $ENVIRONMENT="production"
           echo "${{github.event.release}}"
         fi       
         echo "The env is $ENVIRONMENT"
