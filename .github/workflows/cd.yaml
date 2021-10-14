@@ -51,5 +51,5 @@ jobs:
         # #tech-riot
         SLACK_WEBHOOK: https://hooks.slack.com/services/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
         SLACK_COLOR: ${{ job.status }}
-        SLACK_ICON: https://files.slack.com/files-pri/T7MMVLUE6-F02HM1HUA30/screen_shot_2021-10-13_at_3.03.18_pm.png
+#         SLACK_ICON: https://files.slack.com/files-pri/T7MMVLUE6-F02HM1HUA30/screen_shot_2021-10-13_at_3.03.18_pm.png
         SLACK_TITLE: "branch  = ${{env.BRANCH}}"
