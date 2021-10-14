@@ -17,37 +17,31 @@ jobs:
     - name: debug1
       run: |
         echo "${{github.event_name}}"
-    - name: DEV VARS
-      if: ( github.event_name == 'push' ) && github.ref == 'refs/heads/dev'
+    - name: Extract branch name
       shell: bash
+      run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+      id: extract_branch
+
+    - name: set env.ENVIRONMENT
+      shell: bash
+      env: 
+        BRANCH: "${{ steps.extract_branch.outputs.branch }}"
       run: |
-        echo "ENVIRONMENT=dev" >> $GITHUB_ENV
-        echo "BRANCH_NAME=$(echo ${GITHUB_HEAD_REF} | tr / -)" >> $GITHUB_ENV
+        [[ "$BRANCH" == "dev" ]] &&  echo "ENVIRONMENT=dev" >> $GITHUB_ENV
+        [[ "$BRANCH" == "test" ]] &&  echo "ENVIRONMENT=test" >> $GITHUB_ENV
+        [[ "$BRANCH" == "main" ]] &&  echo "ENVIRONMENT=staging" >> $GITHUB_ENV
+        echo "BRANCH=$BRANCH" >> $GITHUB_ENV
     
-    - name: TEST VARS
-      if: ( github.event_name == 'push' ) && github.ref == 'refs/heads/test'
-      shell: bash
-      run: |
-        echo "ENVIRONMENT=test" >> $GITHUB_ENV
-        echo "BRANCH_NAME=$(echo ${GITHUB_HEAD_REF} | tr / -)" >> $GITHUB_ENV
-
-    - name: STAGING VARS
-      if: ( github.event_name == 'push') && github.ref == 'refs/heads/main'
-      shell: bash
-      run: |
-        echo "ENVIRONMENT=staging" >> $GITHUB_ENV
-        echo "BRANCH_NAME=$(echo ${GITHUB_HEAD_REF} | tr / -)" >> $GITHUB_ENV
-
     - name: PRODUCTION VARS
       if: github.event_name == 'release' 
       shell: bash
       run: |
         echo "ENVIRONMENT=production" >> $GITHUB_ENV
-        echo "BRANCH_NAME=$(echo ${GITHUB_HEAD_REF} | tr / -)" >> $GITHUB_ENV
+
         
     - name: Debug
       run: 
-        echo ${{ env.BRANCH_NAME }}
+        echo ${{ env.BRANCH }}
         echo ${{ env.ENVIRONMENT }}
  
     - name: Notify Slackers
@@ -58,4 +52,4 @@ jobs:
         SLACK_WEBHOOK: https://hooks.slack.com/services/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
         SLACK_COLOR: ${{ job.status }}
         SLACK_ICON: https://files.slack.com/files-pri/T7MMVLUE6-F02HM1HUA30/screen_shot_2021-10-13_at_3.03.18_pm.png
-        SLACK_TITLE: "branch  = ${{env.BRANCH_NAME}}"
+        SLACK_TITLE: "branch  = ${{env.BRANCH}}"
