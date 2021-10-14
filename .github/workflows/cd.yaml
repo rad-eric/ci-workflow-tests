@@ -43,13 +43,16 @@ jobs:
       run: 
         echo ${{ env.BRANCH }}
         echo ${{ env.ENVIRONMENT }}
-    - name: slack - GitHub Actions Slack integration
-      uses: act10ns/slack@v1.2.2
-      if: always()
+ 
+    - name: Slack Notification
+      uses: rtCamp/action-slack-notify@v2
       env:
-        SLACK_WEBHOOK_URL: ${{secrets.SLACK_WEBHOOK}}
-      with:
-        # Specify success, failure, cancelled or a custom status.
-        status: ${{ job.status }}
-        # Report on the status of individual steps (optional)
-        steps: ${{ toJson(steps) }}
+#         SLACK_CHANNEL: general
+        SLACK_COLOR: ${{ job.status }} # or a specific color like 'good' or '#ff00ff'
+        SLACK_ICON: https://github.com/rtCamp.png?size=48
+        SLACK_MESSAGE: 'Post Content :rocket:'
+        SLACK_TITLE: Post Title
+        SLACK_USERNAME: Connected Bikes
+        SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+        
+    
