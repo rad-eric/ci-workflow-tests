@@ -43,11 +43,13 @@ jobs:
       run: 
         echo ${{ env.BRANCH }}
         echo ${{ env.ENVIRONMENT }}
-        
-    - name: Send GitHub Action trigger data to Slack workflow
-      id: slack
-      uses: slackapi/slack-github-action@v1.14.0
-      with:
-        payload: "{\"key\":\"value\",\"foo\":\"bar\"}" # This data can be any valid JSON from a previous step in the GitHub Action
+    - name: slack - GitHub Actions Slack integration
+      uses: act10ns/slack@v1.2.2
+      if: always()
       env:
         SLACK_WEBHOOK_URL: ${{secrets.SLACK_WEBHOOK}}
+      with:
+        # Specify success, failure, cancelled or a custom status.
+        status: ${{ job.status }}
+        # Report on the status of individual steps (optional)
+        steps: ${{ toJson(steps) }}
