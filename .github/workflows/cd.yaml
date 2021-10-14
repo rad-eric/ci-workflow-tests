@@ -51,7 +51,7 @@ jobs:
         echo ${{ env.ENVIRONMENT }}
  
     - name: Notify Slackers
-      if: ${{env.GITHUB_ENV}} != null
+      if: ${{env.GITHUB_ENV}} != dev
       uses: rtCamp/action-slack-notify@v2.1.3
       env:
         # #tech-riot
