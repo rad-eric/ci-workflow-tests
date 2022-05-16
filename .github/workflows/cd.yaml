@@ -54,7 +54,7 @@ jobs:
  
     - name: Trigger next workflow
       if: success()
-      uses: rad-eric/ci-workflow-2@v1
+      uses: rad-eric/ci-workflow-2@master
       with:
         token: ${{ secrets.PAT_GITHUB_ACTIONS }}
         repository: ${{ github.repository }}
