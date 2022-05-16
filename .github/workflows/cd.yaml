@@ -13,7 +13,7 @@ jobs:
       COGNITO_USER_POOL_ID: "us-west-2_iq4sQovhE"
 
     steps:
-    - uses: actions/checkout@v1 
+    - uses: actions/checkout@v2.4.2
     - name: debug1
       run: |
         echo "${{github.event_name}}"
