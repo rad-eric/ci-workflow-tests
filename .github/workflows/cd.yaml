@@ -54,9 +54,9 @@ jobs:
  
     - name: Trigger next workflow
       if: success()
-      uses: rad-eric/ci-workflow-2@master
+      uses: peter-evans/repository-dispatch@v1
       with:
         token: ${{ secrets.PAT_GITHUB_ACTIONS }}
-        repository: ${{ github.repository }}
+        repository: rad-eric/ci-workflow-2
         event-type: trigger-workflow-2
         client-payload: '{"ref": "${{ github.ref }}", "sha": "${{ github.sha }}"}'
