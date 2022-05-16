@@ -52,11 +52,11 @@ jobs:
         echo ${{ env.BRANCH_NAME }}
         echo ${{ env.ENVIRONMENT }}
  
-#     - name: Trigger next workflow
-#       if: success()
-#       uses: rad-eric/ci-workflow-2
-#       with:
-#         token: ${{ secrets.PAT_GITHUB_ACTIONS }}
-#         repository: ${{ github.repository }}
-#         event-type: trigger-workflow-2
-#         client-payload: '{"ref": "${{ github.ref }}", "sha": "${{ github.sha }}"}'
+    - name: Trigger next workflow
+      if: success()
+      uses: rad-eric/ci-workflow-2@v1
+      with:
+        token: ${{ secrets.PAT_GITHUB_ACTIONS }}
+        repository: ${{ github.repository }}
+        event-type: trigger-workflow-2
+        client-payload: '{"ref": "${{ github.ref }}", "sha": "${{ github.sha }}"}'
